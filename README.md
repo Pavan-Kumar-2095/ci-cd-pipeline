@@ -211,17 +211,13 @@ http://localhost:3000
 
 ## 🖥️ Jenkins Pipeline Screenshots
 
-### 1. Build Stage
-![Build](images/Screenshot-2026-04-14-162424.png)
+![Step 1](images/Screenshot%202026-04-14%20162424.png)
 
-### 2. Docker Image Build
-![Docker](images/Screenshot-2026-04-14-162552.png)
+![Step 2](images/Screenshot%202026-04-14%20162552.png)
 
-### 3. Container Run
-![Run](images/Screenshot-2026-04-14-162623.png)
+![Step 3](images/Screenshot%202026-04-14%20162623.png)
 
-### 4. Final Output
-![Output](images/Screenshot-2026-04-14-163039.png)
+![Step 4](images/Screenshot%202026-04-14%20163039.png)
 
 ---
 
