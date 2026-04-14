@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
     </head>
     <body>
       <div class="box">
-        <h1>Hello from Jenkins 🚀</h1>
+        <h1>Update code base and push to github this should trigger Jenkins </h1>
         <p>This is a simple Docker + Node.js demo app</p>
       </div>
     </body>
