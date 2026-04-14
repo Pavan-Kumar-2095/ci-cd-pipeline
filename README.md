@@ -1,85 +1,41 @@
-# 🚀 Jenkins + Docker + Node.js CI/CD Pipeline Demo
+#  CI/CD Pipeline Project (Jenkins + Docker + Node.js)
 
-A simple DevOps project showing how code changes automatically get built and deployed using **Jenkins + Docker + GitHub**.
+A production-style DevOps project demonstrating a fully automated CI/CD pipeline using Jenkins, Docker, GitHub, and Node.js.
 
----
-
-# 📌 Project Overview
-
-This project demonstrates a basic CI/CD pipeline:
-
-```
-GitHub Push
-   ↓
-Jenkins detects change
-   ↓
-Docker builds new image
-   ↓
-Old container is removed
-   ↓
-New container runs
-   ↓
-App updates on browser (port 3000)
-```
+This project shows how code changes automatically trigger build, containerization, and deployment.
 
 ---
 
-# 🧠 What This Project Teaches
-
-Whenever you change something in code like:
-
+#  Architecture Overview
 ```
-"Hello Jenkins" → "Hello DevOps"
+Developer
+↓ (git push)
+GitHub Repository
+↓ (webhook / polling)
+Jenkins Pipeline
+↓
+Docker Build Image
+↓
+Stop Old Container
+↓
+Run New Container
+↓
+Node.js Application (Port 3000)
+
+---
+```
+#  Step 0: Clone Repository
+```
+git clone https://github.com/Pavan-Kumar-2095/ci-cd-pipeline
+cd ci-cd-pipeline
 ```
 
-Jenkins will:
-
-- pull latest code from GitHub
-- rebuild Docker image
-- stop old container
-- start new container
-
-👉 and you instantly see the updated output in browser
 
 ---
 
-# 🖥️ Application View (Simple UI Idea)
-
-```
-+---------------------------------------+
-|                                       
-|     🚀 Node + Jenkins Demo App        
-|                                      
-|     ✔ CI/CD Pipeline Working         
-|     ✔ Auto Build on Git Push         
-|     ✔ Docker Deployment              
-|                                      
-|     🌐 Running on Port 3000         
-|                                      
-+--------------------------------------+
-```
-
-📸 Add Screenshot Here:
-```
-/images/app-ui.png
-```
-
----
-
-# 🧱 Tech Stack
-
-
-- Docker
-- Jenkins
-- GitHub
-
----
-
-# 📁 Project Structure
-
+#  Project Structure
 ```
 ci-cd-pipeline/
-│
 ├── index.js
 ├── package.json
 ├── package-lock.json
@@ -87,144 +43,183 @@ ci-cd-pipeline/
 ├── Jenkinsfile
 ├── .dockerignore
 ├── .gitignore
+├── images/
+├── create-custom-jenkins/
+│ └── Dockerfile
 └── README.md
 ```
 
+
 ---
 
-# ⚙️ How CI/CD Works (Simple Flow)
-
+#  CI/CD Pipeline Flow (Jenkins)
 ```
-Developer pushes code
-        ↓
-GitHub webhook triggers Jenkins
-        ↓
-Jenkins pulls latest code
-        ↓
+Developer pushes code to GitHub
+Jenkins detects changes (Webhook / Poll SCM)
+Jenkins pulls latest source code
+Jenkins reads Jenkinsfile
 Docker image is built
-        ↓
+Existing container is stopped
 Old container is removed
-        ↓
-New container starts
-        ↓
-App updates in browser
+New container is started
+Application is deployed on port 3000
 ```
 
+
+---
+
+#  Create Custom Jenkins Image
+```
+cd create-custom-jenkins
+docker build -t custom-jenkins .
+```
+
+
+---
+
+#  Run Custom Jenkins Container
+```
+docker run -d -p 8080:8080 -p 50000:50000
+-v jenkins_home:/var/jenkins_home
+-v /var/run/docker.sock:/var/run/docker.sock
+--user root
+--name jenkins
+custom-jenkins
+```
 
 
 
 ---
 
-# 🔥 Important Concept: Docker Socket (Jenkins)
+#  Get Jenkins Admin Password
+```
+docker ps
+docker exec -it <container_id> cat /var/jenkins_home/secrets/initialAdminPassword
+```
 
-Jenkins uses Docker socket to control Docker:
 
+Setup Steps:
+- Install suggested plugins
+- Create admin user
+- Configure Jenkins instance
+
+---
+
+#  Jenkins Job Configuration
+
+### Pipeline Type:
+- Multibranch Pipeline
+
+### Configuration:
+- Connect GitHub repository
+- Enable Branch Indexing
+- Enable SCM Polling (optional)
+- Jenkins automatically detects `Jenkinsfile`
+
+---
+
+#  Manual Trigger (Build Now)
+
+You can manually trigger pipeline:
+
+- Go to Jenkins Dashboard
+- Select Job
+- Click **Build Now**
+
+### What it does:
+- Runs full Jenkins pipeline instantly
+- Ignores Git polling/webhook delay
+- Useful for testing CI/CD setup
+
+---
+
+#  Docker Socket Integration
 ```
 /var/run/docker.sock
 ```
 
-It allows Jenkins to:
 
-- build images
-- run containers
-- stop old deployments
-
----
-
-# 📦 Project Files Explained
-
-### `.dockerignore`
-Used to ignore unnecessary files while building image
-
-### `.gitignore`
-Prevents node_modules and logs from being pushed
-
-### `Dockerfile`
-Defines how app is containerized
-
-### `Jenkinsfile`
-Defines CI/CD pipeline steps
-
-### `index.js / app.js`
-Main Node.js application
-
-### `package.json`
-Dependencies and scripts
+Jenkins uses Docker daemon to:
+- Build images
+- Run containers
+- Stop containers
+- Remove old deployments
+- Deploy updated application
 
 ---
 
-# 🚀 How to Run This Project
-
-## 1. Clone repo
-```bash
-git clone <your-repo-url>
-cd ci-cd-pipeline
-```
-
-## 2. Install dependencies
-```bash
-npm install
-```
-
-## 3. Run locally (without Docker)
-```bash
-node index.js
-```
-
-Open:
+#  Application Access
 ```
 http://localhost:3000
 ```
 
 ---
 
-## 🐳 Run with Docker
+#  CI/CD Behavior Example
 
-### Build image
-```bash
-docker build -t my-node-app .
-```
+Before: Hello Jenkins  
+After: Hello DevOps  
 
-### Run container
-```bash
-docker run -d -p 3000:3000 --name node-app my-node-app
-```
-
-Open:
-```
-http://localhost:3000
-```
+Pipeline automatically:
+- Detects GitHub commit
+- Rebuilds Docker image
+- Restarts container
+- Reflects changes instantly
 
 ---
 
-## ⚙️ Run via Jenkins Pipeline
+#  FILES EXPLAINED
 
-1. Push code to GitHub
-2. Jenkins auto triggers
-3. Pipeline runs:
-   - build image
-   - remove old container
-   - start new container
-
----
-
-
-## 🖥️ Jenkins Pipeline Screenshots
-
-![Step 1](images/Screenshot%202026-04-14%20162424.png)
-
-![Step 2](images/Screenshot%202026-04-14%20162552.png)
-
-![Step 3](images/Screenshot%202026-04-14%20162623.png)
-
-![Step 4](images/Screenshot%202026-04-14%20163039.png)
+| File | Purpose |
+|------|--------|
+| create-custom-jenkins/Dockerfile | Create custom jenkins image  |
+| Dockerfile | Create Node.js app |
+| Jenkinsfile | Defines CI/CD pipeline |
+| index.js | Main application |
+| package.json | Dependencies |
+| .dockerignore | Excludes unnecessary files |
+| .gitignore | Git ignore rules |
 
 ---
 
-# 🎯 Final Result
+#  TECH STACK
 
-Every code push updates your app automatically:
+- Node.js
+- Jenkins
+- Docker
+- GitHub
 
-```
-Code Change → Jenkins Build → Docker Deploy → Live Update
-```
+---
+
+#  KEY DEVOPS CONCEPTS DEMONSTRATED
+
+✔ CI/CD Automation  
+✔ Docker Containerization  
+✔ Jenkins Pipeline as Code  
+✔ GitHub Integration  
+✔ Automated Deployment  
+✔ Infrastructure as Code (basic level)
+
+---
+
+#  PROJECT OUTCOME
+
+After completing this project, you will understand:
+
+- Real-world CI/CD pipeline workflow
+- Jenkins job automation
+- Docker-based deployments
+- Git-based continuous integration
+- End-to-end DevOps lifecycle
+
+---
+
+#  BONUS (Interview Talking Points)
+
+You can explain in interviews:
+
+- How Jenkins detects GitHub changes
+- How Docker ensures consistent environments
+- Why Jenkins uses docker.sock
+- Difference between manual vs automated deployment
+- How pipeline reduces deployment time and human error
