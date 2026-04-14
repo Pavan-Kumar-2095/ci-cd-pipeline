@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
-const message = "Hello! from Docker";
+const message = "Hello! from Jenkins";
 const lastUpdated = new Date().toLocaleString();
 
 app.get("/", (req, res) => {
