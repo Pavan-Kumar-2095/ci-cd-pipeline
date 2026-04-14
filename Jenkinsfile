@@ -20,6 +20,7 @@ pipeline {
             steps {
                 sh '''
                     docker rmi my-node-app || true
+                    docker build -t my-node-app .
                 '''
             }
         }
@@ -27,12 +28,15 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh '''
-                echo "Stopping old container if exists..."
-                docker stop node-app || true
-                docker rm node-app || true
+                    # Stop and remove existing container safely
+                    docker stop node-app || true
+                    docker rm node-app || true
 
-            '''
-    }
-}
+
+                    # Run new container on SAME port
+                    docker run -d -p 3000:3000 --name node-app my-node-app
+                '''
+            }
+        }
     }
 }
