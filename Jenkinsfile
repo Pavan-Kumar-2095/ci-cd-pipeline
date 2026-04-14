@@ -28,21 +28,18 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh '''
-                    # Stop and remove existing container safely
-                    docker stop node-app || true
-                    docker rm node-app || true
+                echo "Stopping old container if exists..."
+                docker stop node-app || true
+                docker rm node-app || true
 
-                    # Remove any container using port 3000 (safe version)
-                    container_id=$(docker ps -q --filter "publish=3000")
-                    if [ ! -z "$container_id" ]; then
-                        docker stop $container_id || true
-                        docker rm -f $container_id || true
-                    fi
+                echo "Freeing port 3000 containers..."
+                docker ps -q --filter "publish=3000" | xargs -r docker stop
+                docker ps -aq --filter "publish=3000" | xargs -r docker rm -f
 
-                    # Run new container on SAME port
-                    docker run -d -p 3000:3000 --name node-app my-node-app
-                '''
-            }
-        }
+                echo "Starting new container..."
+                docker run -d -p 3000:3000 --name node-app my-node-app
+            '''
+    }
+}
     }
 }
