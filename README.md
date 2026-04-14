@@ -209,12 +209,13 @@ http://localhost:3000
 ---
 
 
-```
-/images/Screenshot 2026-04-14 162424.png  
-/images/Screenshot 2026-04-14 162552.png  
-/images/Screenshot 2026-04-14 162623.png  
-/images/Screenshot 2026-04-14 163039.png
-```
+![Screenshot 1](images/Screenshot-2026-04-14-162424.png)
+
+![Screenshot 2](images/Screenshot-2026-04-14-162552.png)
+
+![Screenshot 3](images/Screenshot-2026-04-14-162623.png)
+
+![Screenshot 4](images/Screenshot-2026-04-14-163039.png)
 
 ---
 

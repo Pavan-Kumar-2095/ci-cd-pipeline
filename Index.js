@@ -2,8 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
-// 👉 Change this text to see update highlight
-const message = "Hello from Jenkins ";
+const message = "Hello! from Jenkins ";
 const lastUpdated = new Date().toLocaleString();
 
 app.get("/", (req, res) => {
