@@ -25,8 +25,12 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker rm -f node-app || true'
-                sh 'docker run -d -p 3000:3000 --name node-app my-node-app'
+                sh '''
+                    docker stop node-app || true
+                    docker rm node-app || true
+                    docker rm -f $(docker ps -q --filter "publish=3000") || true
+                    docker run -d -p 3000:3000 --name node-app my-node-app
+                '''
             }
         }
     }
