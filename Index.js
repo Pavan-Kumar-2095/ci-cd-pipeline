@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
-const message = "Hello! from Docker";
+const message = "Hello! from Jenkins";
 const lastUpdated = new Date().toLocaleString();
 
 app.get("/", (req, res) => {
@@ -121,7 +121,7 @@ app.get("/", (req, res) => {
 <body>
   <div class="card">
 
-    <h1>🚀 CI/CD LIVE DASHBOARD</h1>
+    <h1> CI/CD LIVE DASHBOARD</h1>
     <div class="subtitle">
       Jenkins → Docker → Node.js Deployment Visualization
     </div>
