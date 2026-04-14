@@ -5,7 +5,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/Pavan-Kumar-2095/ci-cd-pipeline'
+                echo 'No need to clone repo Jenkins will clone automaticaly'
             }
         }
 
@@ -40,3 +40,4 @@ pipeline {
         }
     }
 }
+
