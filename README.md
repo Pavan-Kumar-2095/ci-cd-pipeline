@@ -213,13 +213,3 @@ After completing this project, you will understand:
 - End-to-end DevOps lifecycle
 
 ---
-
-#  BONUS (Interview Talking Points)
-
-You can explain in interviews:
-
-- How Jenkins detects GitHub changes
-- How Docker ensures consistent environments
-- Why Jenkins uses docker.sock
-- Difference between manual vs automated deployment
-- How pipeline reduces deployment time and human error
