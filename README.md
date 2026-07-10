@@ -213,3 +213,40 @@ After completing this project, you will understand:
 - End-to-end DevOps lifecycle
 
 ---
+---
+
+# Screenshots
+
+## Jenkins Pipeline Execution
+
+The Jenkins pipeline automatically builds the Docker image, manages containers, and deploys the updated application.
+
+<p align="center">
+  <img src="images/Screenshot 2026-04-14 162552.png" width="80%">
+</p>
+
+<p align="center">
+  <img src="images/Screenshot 2026-04-14 162623.png" width="80%">
+</p>
+
+---
+
+## Docker Container Deployment
+
+Docker is used to build and run the Node.js application container during the deployment stage.
+
+<p align="center">
+  <img src="images/Screenshot 2026-04-14 163039.png" width="80%">
+</p>
+
+---
+
+## Application Output
+
+After successful deployment, the Node.js application is available through the configured port.
+
+<p align="center">
+  <img src="images/Screenshot 2026-04-14 162424.png" width="85%">
+</p>
+
+---
